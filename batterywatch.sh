@@ -9,8 +9,8 @@ full=($(cat /sys/class/power_supply/BAT*/energy_full))
 # Read energy_now
 now=($(cat /sys/class/power_supply/BAT*/energy_now))
 
-let abs_now=0
-let abs_full=0
+(( abs_now=0 ))
+(( abs_full=0 ))
 
 for ((i = 0; i < ${#now[@]}; ++i)); do
     abs_now=$(echo "$abs_now + ${now[i]}" | bc -l)
