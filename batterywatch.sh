@@ -19,8 +19,8 @@ done
 
 level=$(echo "$abs_now / $abs_full" | bc -l)
 
-if (( $(echo "$level <= $threshold" | bc -l) )); then
-    if [ ! -f "/tmp/batterywatch_notification" ] || ( (( $(echo "$level <= $critical" | bc -l)  )) && (( ! $(cat /sys/class/power_supply/AC/online) )) ); then
+if (( ! $(cat /sys/class/power_supply/AC/online) )) ; then
+    if ( (( $(echo "$level <= $threshold" | bc -l) )) && [ ! -f "/tmp/batterywatch_notification" ] ) || (( $(echo "$level <= $critical" | bc -l)  )) ; then
         notify-send "Battery status" "Your battery is running low!!!" -u critical
         touch /tmp/batterywatch_notification
     fi
